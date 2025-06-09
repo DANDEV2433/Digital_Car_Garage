@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Créer un compte</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo">Digital Car Garage</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+    </nav>
+  </header>
+  <div class="container">
+    <h1>Créer un compte</h1>
+    <form id="registerForm">
+      <label for="role">Rôle :</label>
+      <select id="role" required>
+        <option value="">-- Choisir --</option>
+        <option value="client">Client</option>
+        <option value="garage">Garagiste</option>
+      </select>
+
+      <label for="nom">Nom :</label>
+      <input id="nom" type="text" required />
+
+      <label for="prenom">Prénom :</label>
+      <input id="prenom" type="text" required />
+
+      <label for="email">Email :</label>
+      <input id="email" type="email" required />
+
+      <label for="confirmEmail">Confirmer Email :</label>
+      <input id="confirmEmail" type="email" required />
+
+      <label for="password">Mot de passe :</label>
+      <input id="password" type="password" required />
+
+      <label for="confirmPassword">Confirmer mot de passe :</label>
+      <input id="confirmPassword" type="password" required />
+
+      <!-- Affiché seulement si rôle = Garagiste -->
+      <div id="garageFields" style="display: none;">
+        <label for="raisonSociale">Raison sociale :</label>
+        <input id="raisonSociale" type="text" />
+      </div>
+
+      <button type="submit">Créer mon compte</button>
+    </form>
+
+    <div id="message"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+
+</html>
