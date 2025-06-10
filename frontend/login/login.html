@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion - Digital Car Garage</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="logo">Digital Car Garage</div>
+
+    <img
+      src="\\wsl.localhost\Ubuntu-24.04\home\dannythedev\dev\perso\Digital_Car_Garage\frontend\login\mecanique-generale-min-scaled.jpg.webp"
+      alt="image moteur" class="login-image" />
+
+    <p>Nouveau sur Digital Car Garage ?</p>
+    <a href="create-account.html"><button class="btn-create">Créer un compte</button></a>
+
+    <hr class="separator" />
+
+    <p>Déjà client ?</p>
+
+    <form id="loginForm" class="login-form">
+      <input type="email" id="email" placeholder="exemple@gmail.com" required />
+      <input type="password" id="password" placeholder="votre mot de passe" required />
+      <button type="submit" class="btn-login">Me connecter</button>
+    </form>
+
+    <p><a href="#">Mot de passe oublié ?</a></p>
+    <p id="loginMessage"></p>
+  </div>
+  <script src="login.js"></script>
+</body>
+
+</html>
