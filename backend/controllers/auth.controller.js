@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const db = require("../models/db");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const role = req.body.role; // 'client' ou 'garage'
@@ -47,6 +48,51 @@ exports.register = async (req, res) => {
     res.status(201).json({ message: "Utilisateur créé avec succès" });
   } catch (err) {
     console.error("Erreur dans register:", err);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
+exports.login = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  try {
+    // Vérifier si l'utilisateur existe
+    const [rows] = await db.query("SELECT * FROM User WHERE email = ?", [email]);
+    if (rows.length === 0) {
+      return res.status(401).json({ message: "Email ou mot de passe incorrect" });
+    }
+
+    const user = rows[0];
+
+    // Vérifier le mot de passe
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Email ou mot de passe incorrect" });
+    }
+
+    const payload = {
+      id: user.id,
+      email: user.email,
+      role: user.role_id
+      };
+    // Générer les tokens
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRATION || "20m"
+    });
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRATION || "7d"
+    });
+
+    res.status(200).json({
+      accessToken,
+      refreshToken,
+      role_id: user.role_id,
+      user_id: user.id,
+      message: "Connexion réussie"
+    });
+  } catch (err) {
+    console.error("Erreur dans login:", err);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
