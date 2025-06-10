@@ -4,12 +4,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connexion - Digital Car Garage</title>
+  <title>Espace Garage - Digital Car Garage</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <h1>Bienvenue sur la page du garage</h1>
+  <header class="header">
+    <div class="header-left">
+      <h1>Digital Car Garage</h1>
+    </div>
+    <nav class="header-right">
+      <a href="../login/login.html" class="btn">Accueil</a>
+      <div class="dropdown">
+        <button class="dropbtn">Mon compte ▾</button>
+        <div class="dropdown-content">
+          <a href="#">Profil</a>
+          <a href="#">Modifier mot de passe</a>
+          <a href="#" onclick="logout()">Déconnexion</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="vehicle-list">
+      <h2>Véhicules enregistrés</h2>
+      <input type="text" id="searchInput" placeholder="Rechercher par nom, plaque, modèle..." />
+      <div id="vehicleCards" class="cards">
+        <!-- Cartes véhicules générées dynamiquement -->
+      </div>
+    </section>
+
+    <section class="vehicle-form">
+      <h2>Ajouter un véhicule</h2>
+      <form id="addVehicleForm">
+        <input type="text" placeholder="Nom" name="last_name" required />
+        <input type="text" placeholder="Prénom" name="first_name" required />
+        <input type="text" placeholder="Plaque d'immatriculation" name="license_plate" required />
+        <input type="text" placeholder="Marque" name="brand" required />
+        <input type="text" placeholder="Modèle" name="model" required />
+        <input type="number" placeholder="Année" name="year" required />
+        <input type="number" placeholder="Kilométrage" name="mileage" required />
+        <input type="file" name="photo" accept="image/*" />
+        <button type="submit">Ajouter le véhicule</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="garage.js"></script>
 </body>
 
 </html>
