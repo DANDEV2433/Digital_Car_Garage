@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
 
   try {
     // Récupérer l'UUID du rôle dans la table Role
-    const [roleRows] = await db.query("SELECT id FROM Role WHERE name = ?", [role]);
+    const [roleRows] = await db.query("SELECT id, name FROM Role WHERE name = ?", [role]);
     if (roleRows.length === 0) {
       return res.status(400).json({ message: "Rôle invalide" });
     }
@@ -29,19 +29,32 @@ exports.register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const id = uuidv4();
+    const userId = uuidv4();
 
+    // Insertion dans User
     if (raison_sociale) {
       await db.query(
         `INSERT INTO User (id, role_id, last_name, first_name, email, password, raison_sociale)
          VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [id, role_id, last_name, first_name, email, hashedPassword, raison_sociale]
+        [userId, role_id, last_name, first_name, email, hashedPassword, raison_sociale]
       );
     } else {
       await db.query(
         `INSERT INTO User (id, role_id, last_name, first_name, email, password)
          VALUES (?, ?, ?, ?, ?, ?)`,
-        [id, role_id, last_name, first_name, email, hashedPassword]
+        [userId, role_id, last_name, first_name, email, hashedPassword]
+      );
+    }
+
+    // 🔧 Ajout dans la table Garage si le rôle est garage
+    console.log("Nom du rôle reçu :", roleRows[0].name);
+    if (roleRows[0].name === "garage" && raison_sociale) {
+      console.log("Insertion dans la table Garage...");
+      const garageId = uuidv4();
+      await db.query(
+        `INSERT INTO Garage (id, company_name, user_id)
+         VALUES (?, ?, ?)`,
+        [garageId, raison_sociale, userId]
       );
     }
 
@@ -75,8 +88,8 @@ exports.login = async (req, res) => {
       id: user.id,
       email: user.email,
       role: user.role_id
-      };
-    // Générer les tokens
+    };
+
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRATION || "20m"
     });

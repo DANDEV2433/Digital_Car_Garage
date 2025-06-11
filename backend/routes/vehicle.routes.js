@@ -15,6 +15,6 @@ const verifyToken = require("../middleware/verifyToken.middleware");
 
 
 // Ajouter un véhicule (avec photo)
-router.post("/Vehicles", verifyToken, upload.single("photo"), vehicleController.addVehicle);
+router.post("/vehicles", verifyToken, upload.single("photo"), vehicleController.addVehicle);
 
 module.exports = router;

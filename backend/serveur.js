@@ -14,7 +14,7 @@ app.use(morgan("dev"));
 // Route pour l'API d'authentification
 app.use("/api/v1/auth", require("./routes/auth.routes"));
 // Route pour l'API d'ajout de véhicule
-app.use("/api/v1/vehicle", require("./routes/vehicle.routes"));
+app.use("/api/v1", require("./routes/vehicle.routes"));
 
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
