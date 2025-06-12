@@ -75,4 +75,25 @@ exports.addVehicle = async (req, res) => {
     console.error("Erreur ajout véhicule :", error);
     res.status(500).json({ message: "Erreur lors de l'ajout du véhicule." });
   }
+}; 
+
+exports.getAllVehicles = async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT v.*, u.last_name AS client_nom, u.first_name AS client_prenom
+      FROM vehicles v
+      JOIN User u ON v.user_id = u.id`
+    );
+
+    // Conversion des photos en base64 si elles existent
+    const vehicules = rows.map(v => ({
+      ...v,
+      photo: v.photo ? v.photo.toString('base64') : null,
+    }));
+
+    res.json(vehicules);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des véhicules :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
 };

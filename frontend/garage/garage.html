@@ -20,7 +20,7 @@
         <div class="dropdown-content">
           <a href="#">Profil</a>
           <a href="#">Modifier mot de passe</a>
-          <a href="#" onclick="logout()">Déconnexion</a>
+          <a href="#" id="logoutButton">Déconnexion</a>
         </div>
       </div>
     </nav>
@@ -29,8 +29,8 @@
   <main class="container">
     <section class="vehicle-list">
       <h2>Véhicules enregistrés</h2>
-      <input type="text" id="searchInput" placeholder="Rechercher par nom, plaque, modèle..." />
-      <div id="vehicleCards" class="cards">
+      <input type="text" id="searchVehicle" placeholder="Rechercher un véhicule" />
+      <div id="vehicleCards" class="vehicle-list">
         <!-- Cartes véhicules générées dynamiquement -->
       </div>
     </section>
