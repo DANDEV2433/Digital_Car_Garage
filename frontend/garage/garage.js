@@ -46,9 +46,9 @@ function afficherVehicule(v) {
   card.innerHTML = `
     ${imgHtml}
     <h3>${v.client_prenom} ${v.client_nom}</h3>
-    <p>📄 ${v.plate_number}</p>
-    <p>🚗 ${v.brand} ${v.model} (${v.year})</p>
-    <p>🛣️ ${v.mileage} km</p>
+    <p>${v.plate_number}</p>
+    <p>${v.brand} ${v.model} (${v.year})</p>
+    <p>${v.mileage} km</p>
     <button onclick="location.href='vehicule.html?id=${v.id}'">Détails véhicule</button>
   `;
 
