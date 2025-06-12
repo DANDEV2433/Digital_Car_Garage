@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -15,6 +16,12 @@ app.use(morgan("dev"));
 app.use("/api/v1/auth", require("./routes/auth.routes"));
 // Route pour l'API d'ajout de véhicule
 app.use("/api/v1", require("./routes/vehicle.routes"));
+// Sert le frontend (HTML, JS, CSS, images)
+app.use(express.static(path.join(__dirname, "../frontend")));
+// Redirige / vers login.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/login/login.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);

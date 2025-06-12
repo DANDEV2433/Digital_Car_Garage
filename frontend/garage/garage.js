@@ -6,7 +6,7 @@ form.addEventListener("submit", async (e) => {
   const formData = new FormData(form);
 
   try {
-    const response = await fetch("localhost:3000/api/v1/vehicles", {
+    const response = await fetch("/api/v1/vehicles", {
       method: "POST",
       headers: {
         // Pas de Content-Type ici, car fetch gère automatiquement multipart/form-data avec FormData
