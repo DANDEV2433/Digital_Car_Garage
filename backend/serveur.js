@@ -2,14 +2,19 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5500", // ou le port de ton front (modifie si besoin)
+  credentials: true
+}));
 app.use(express.json());
 
+app.use(cookieParser());
 // Ajoute Morgan pour logger les requêtes HTTP dans le terminal
 app.use(morgan("dev"));
 // Route pour l'API d'authentification

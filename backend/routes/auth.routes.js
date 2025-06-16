@@ -7,5 +7,7 @@ router.post("/register", authController.register);
 
 // Route pour la connexion d'un utilisateur
 router.post("/login", authController.login);
+// Route pour la déconnexion d'un utilisateur
+router.post("/logout", authController.logout);
 
 module.exports = router;

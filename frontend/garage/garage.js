@@ -4,14 +4,12 @@ const form = document.getElementById("addvehicleForm");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(form);
+  const formData = new FormData(form); // récupère tous les champs du formulaire
 
   try {
     const response = await fetch("/api/v1/vehicles", {
       method: "POST",
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-      },
+      credentials: "include",
       body: formData
     });
 
@@ -19,16 +17,17 @@ form.addEventListener("submit", async (e) => {
 
     if (response.ok) {
       alert(data.message || "Véhicule ajouté avec succès !");
+      // Réinitialiser le formulaire
       form.reset();
-      // Recharger la liste des véhicules
+      // raffraichir la liste des véhicules
       document.getElementById("vehicleCards").innerHTML = "";
-      chargerVehicules();
+      chargerVehicules();// recharge la liste actualisée des véhicules
     } else {
       alert(data.message || "Erreur lors de l'ajout du véhicule");
     }
   } catch (error) {
     console.error("Erreur fetch :", error);
-    alert("Erreur réseau ou serveur");
+    alert("Erreur serveur");
   }
 });
 
@@ -58,11 +57,10 @@ function afficherVehicule(v) {
 // --- Chargement initial des véhicules ---
 function chargerVehicules() {
   fetch("http://localhost:3000/api/v1/vehicles", {
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("accessToken"),
-    },
+    credentials: "include",
   })
     .then((res) => res.json())
+    // Pour chaque véhicule dans la réponse (data), on appelle afficherVehicule pour l’afficher
     .then((data) => {
       data.forEach(afficherVehicule);
     })
@@ -73,7 +71,10 @@ function chargerVehicules() {
 
 // --- Filtrage véhicules ---
 document.getElementById("searchVehicle").addEventListener("input", (e) => {
+  // récupère la valeur du champ de recherche et la convertit en minuscules
   const filter = e.target.value.toLowerCase();
+  // regarde si le texte de chaque carte véhicule contient le filtre
+  // et affiche ou masque la carte en conséquence
   document.querySelectorAll(".vehicle-card").forEach((card) => {
     card.style.display = card.innerText.toLowerCase().includes(filter) ? "block" : "none";
   });
@@ -81,9 +82,16 @@ document.getElementById("searchVehicle").addEventListener("input", (e) => {
 
 // --- Déconnexion ---
 document.getElementById("logoutButton").addEventListener("click", () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  window.location.href = "/login/login.html";
+  fetch("/api/v1/auth/logout", {
+    method: "POST",
+    credentials: "include"
+  })
+    .then(() => {
+      window.location.href = "/login/login.html";
+    })
+    .catch((err) => {
+      console.error("Erreur lors de la déconnexion :", err);
+    });
 });
 
 // --- Lancer le chargement au démarrage de la page ---

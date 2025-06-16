@@ -73,7 +73,7 @@ exports.login = async (req, res) => {
     // Vérifier si l'utilisateur existe
     const [rows] = await db.query("SELECT * FROM User WHERE email = ?", [email]);
     if (rows.length === 0) {
-      return res.status(401).json({ message: "Email ou mot de passe incorrect" });
+      return res.status(401).json({ message: "Email incorrect" });
     }
 
     const user = rows[0];
@@ -81,7 +81,7 @@ exports.login = async (req, res) => {
     // Vérifier le mot de passe
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Email ou mot de passe incorrect" });
+      return res.status(401).json({ message: "Mot de passe incorrect" });
     }
 
     const payload = {
@@ -97,15 +97,35 @@ exports.login = async (req, res) => {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRATION || "7d"
     });
 
-    res.status(200).json({
-      accessToken,
-      refreshToken,
-      role_id: user.role_id,
-      user_id: user.id,
-      message: "Connexion réussie"
-    });
-  } catch (err) {
+    res
+  .cookie('accessToken', accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'Strict',
+    maxAge: 15 * 60 * 1000 // 15 minutes
+  })
+  .cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'Strict',
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
+  })
+  .status(200)
+  .json({
+    role_id: user.role_id,
+    user_id: user.id,
+    message: "Connexion réussie"
+  });
+  }
+  catch (err) {
     console.error("Erreur dans login:", err);
     res.status(500).json({ message: "Erreur serveur" });
   }
+}
+exports.logout = (req, res) => {
+  res
+    .clearCookie('accessToken')
+    .clearCookie('refreshToken')
+    .status(200)
+    .json({ message: "Déconnexion réussie" });
 };
