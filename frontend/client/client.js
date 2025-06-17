@@ -1,13 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const accessToken = localStorage.getItem('accessToken'); // récupère le token
-    fetchVehicles(accessToken);
+    fetchVehicles();
 });
 
-function fetchVehicles(token) {
+function fetchVehicles() {
     fetch('http://localhost:3000/api/v1/vehicles/mine', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
+        method: 'GET',
+        credentials: 'include',
     })
         .then(res => res.json())
         .then(data => {
@@ -32,18 +30,33 @@ function displayVehicles(vehicles) {
         card.innerHTML = `
             ${imgHtml}
             <h3>${vehicle.brand} ${vehicle.model}</h3>
-            <p><strong>Plaque:</strong> ${vehicle.plate_number}</p>
-            <p><strong>Année:</strong> ${vehicle.year}</p>
-            <p><strong>Kilométrage:</strong> ${vehicle.mileage} km</p>
+            <p><strong>Plaque: </strong> ${vehicle.plate_number}</p>
+            <p><strong>Année: </strong> ${vehicle.year}</p>
+            <p><strong>Kilométrage: </strong> ${vehicle.mileage} km</p>
             <button onclick="location.href='vehicule.html?id=${vehicle.id}'">Détails véhicule</button>
         `;
         container.appendChild(card);
     });
 }
 
+// --- Filtrage véhicules ---
+document.getElementById("searchVehicle").addEventListener("input", (e) => {
+  // récupère la valeur du champ de recherche et la convertit en minuscules
+  const filter = e.target.value.toLowerCase();
+  // regarde si le texte de chaque carte véhicule contient le filtre
+  // et affiche ou masque la carte en conséquence
+  document.querySelectorAll(".vehicle-card").forEach((card) => {
+    card.style.display = card.innerText.toLowerCase().includes(filter) ? "block" : "none";
+  });
+});
+
 // --- Déconnexion ---
 document.getElementById("logoutButton").addEventListener("click", () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  window.location.href = "/login/login.html";
+    // Appelle une route pour détruire le cookie
+    fetch('http://localhost:3000/api/v1/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+    }).then(() => {
+        window.location.href = "/login/login.html";
+    });
 });

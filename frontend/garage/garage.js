@@ -45,9 +45,9 @@ function afficherVehicule(v) {
   card.innerHTML = `
     ${imgHtml}
     <h3>${v.client_prenom} ${v.client_nom}</h3>
-    <p>${v.plate_number}</p>
-    <p>${v.brand} ${v.model} (${v.year})</p>
-    <p>${v.mileage} km</p>
+    <p><strong>Plaque: </strong>${v.plate_number}</p>
+    <p><strong>Année: </strong>${v.brand} ${v.model} (${v.year})</p>
+    <p><strong>Kilométrage: </strong>${v.mileage} km</p>
     <button onclick="location.href='vehicule.html?id=${v.id}'">Détails véhicule</button>
   `;
 
@@ -57,6 +57,7 @@ function afficherVehicule(v) {
 // --- Chargement initial des véhicules ---
 function chargerVehicules() {
   fetch("http://localhost:3000/api/v1/vehicles", {
+    method: "GET",
     credentials: "include",
   })
     .then((res) => res.json())
