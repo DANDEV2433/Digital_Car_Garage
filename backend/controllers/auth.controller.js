@@ -1,3 +1,4 @@
+// Contrôleur pour l'authentification des utilisateurs (inscription, connexion, déconnexion)
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const db = require("../models/db");
@@ -13,6 +14,11 @@ exports.register = async (req, res) => {
   const raison_sociale = req.body.raisonSociale || null;
 
   console.log("Données reçues dans register :", req.body);
+
+  // Vérification préalable des champs requis
+  if (!email || !password || !first_name || !last_name || !role) {
+    return res.status(400).json({ message: "Tous les champs requis doivent être fournis" });
+  }
 
   try {
     // Récupérer l'UUID du rôle dans la table Role
@@ -46,7 +52,7 @@ exports.register = async (req, res) => {
       );
     }
 
-    // 🔧 Ajout dans la table Garage si le rôle est garage
+    // Ajout dans la table Garage si le rôle est garage
     console.log("Nom du rôle reçu :", roleRows[0].name);
     if (roleRows[0].name === "garage" && raison_sociale) {
       console.log("Insertion dans la table Garage...");
