@@ -1,34 +1,28 @@
+// Importe Express (utile ici si tu veux ajouter un middleware localement, mais pas obligatoire)
 const express = require("express");
+
+// Permet de gérer les requêtes entre domaines (Cross-Origin Resource Sharing)
 const cors = require("cors");
+
+// Logger de requêtes (ex: GET /api/v1/auth/login 200)
 const morgan = require("morgan");
+
+// Gère les chemins de fichiers (utile pour envoyer les fichiers frontend)
 const path = require("path");
+
+// Lit les cookies dans les requêtes entrantes
 const cookieParser = require("cookie-parser");
+
+// Charge les variables d’environnement (.env)
 require("dotenv").config();
-//const request = require("supertest");
-// const app = require("../app");
-const app = express();
+
+// 📌 Le vrai app est importé ici (app configurée dans app.js)
+const app = require("./app");
+
+// Définit le port sur lequel le serveur va écouter
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true
-}));
-app.use(express.json());
-
-app.use(cookieParser());
-// Ajoute Morgan pour logger les requêtes HTTP dans le terminal
-app.use(morgan("dev"));
-// Route pour l'API d'authentification
-app.use("/api/v1/auth", require("./routes/auth.routes"));
-// Route pour l'API d'ajout de véhicule
-app.use("/api/v1", require("./routes/vehicle.routes"));
-// Sert le frontend (HTML, JS, CSS, images)
-app.use(express.static(path.join(__dirname, "../frontend")));
-// Redirige / vers login.html
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/login/login.html"));
-});
-
+// Lance le serveur et écoute les requêtes entrantes
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
