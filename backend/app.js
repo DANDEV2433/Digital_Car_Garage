@@ -48,5 +48,9 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/login/login.html"));
 });
 
+// Monte les routes pour les utilisateurs sur /api/v1/users (ex: /users, /users/:id)
+app.use("/api/v1/users", require("./routes/user.routes"));
+
+
 // Exporte l'app pour qu'elle puisse être utilisée ailleurs (ex: server.js ou les tests)
 module.exports = app;

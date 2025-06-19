@@ -94,7 +94,13 @@ button:hover {
 }
 
 .success {
-  color: #00ff88;
-  text-align: center;
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
   margin-top: 10px;
 }

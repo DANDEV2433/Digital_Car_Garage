@@ -19,17 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const selectedRole = form.role.value; // "client" ou "garage"
-
     const email = form.email.value;
     const confirmEmail = form.confirmEmail.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
-
-    if (!selectedRole || (selectedRole !== "client" && selectedRole !== "garage")) {
-      showMessage("Rôle invalide.", false);
-      return;
-    }
 
     if (email !== confirmEmail) {
       showMessage("Les emails ne correspondent pas.", false);
@@ -42,14 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const data = {
-      role: selectedRole,
+      role: form.role.value,
       nom: form.nom.value,
       prenom: form.prenom.value,
       email,
       password,
     };
 
-    if (selectedRole === "garage") {
+    if (data.role === "garage") {
       data.raisonSociale = form.raisonSociale.value || null;
     }
 
@@ -70,13 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
         showMessage(result.message || "Une erreur est survenue.", false);
       }
     } catch (error) {
-      console.error("Erreur serveur :", error);
       showMessage("Erreur serveur. Veuillez réessayer plus tard.", false);
     }
   });
 
   function showMessage(msg, success = true) {
     messageBox.textContent = msg;
-    messageBox.className = success ? "success" : "error";
+    messageBox.className = success ? "success" : "error-message";
   }
 });
