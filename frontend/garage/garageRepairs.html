@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace Garage - Digital Car Garage</title>
+  <link rel="stylesheet" href="/garage/style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1>Digital Car Garage</h1>
+    </div>
+    <nav class="header-right">
+      <a href="../login/login.html" class="btn">Accueil</a>
+      <div class="dropdown">
+        <button class="dropbtn">Mon compte ▾</button>
+        <div class="dropdown-content">
+          <a href="../editAccount/edit-account.html" id="editAccountButton">Modifier mon compte</a>
+          <a href="#" id="logoutButton">Déconnexion</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="vehicle-list">
+      <h2>Véhicules enregistrés</h2>
+      <input type="text" id="searchVehicle" placeholder="Rechercher un véhicule" />
+      <div id="vehicleCards" class="vehicle-list">
+        <!-- Cartes véhicules générées dynamiquement -->
+      </div>
+    </section>
+
+    <section class="vehicle-form">
+      <h2>Ajouter un véhicule</h2>
+      <form id="addvehicleForm">
+        <input type="text" placeholder="Plaque d'immatriculation" name="plate_number" required />
+        <input type="text" placeholder="Marque" name="brand" required />
+        <input type="text" placeholder="Modèle" name="model" required />
+        <input type="number" placeholder="Année" name="year" required />
+        <input type="number" placeholder="Kilométrage" name="mileage" required />
+        <input type="text" placeholder="Email client" name="client_email" required />
+        <input type="file" name="photo" accept="image/*" />
+        <button type="submit">Ajouter le véhicule</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/garage/garage.js"></script>
+</body>
+
+</html>

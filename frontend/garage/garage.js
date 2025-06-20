@@ -48,7 +48,7 @@ function afficherVehicule(v) {
     <p><strong>Plaque: </strong>${v.plate_number}</p>
     <p><strong>Année: </strong>${v.brand} ${v.model} (${v.year})</p>
     <p><strong>Kilométrage: </strong>${v.mileage} km</p>
-    <button onclick="location.href='vehicule.html?id=${v.id}'">Détails véhicule</button>
+    <button onclick="location.href='garageRepairs.html?id=${v.id}'">Détails véhicule</button>
   `;
 
   document.getElementById("vehicleCards").appendChild(card);

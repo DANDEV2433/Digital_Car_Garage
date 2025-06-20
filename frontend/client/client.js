@@ -20,7 +20,7 @@ function displayVehicles(vehicles) {
 
     vehicles.forEach(vehicle => {
         const card = document.createElement('div');
-        card.classList.add('vehicle-card'); // classe à styliser en CSS
+        card.classList.add('vehicle-card');
 
         let imgHtml = '';
         if (vehicle.photo) {
@@ -49,6 +49,10 @@ document.getElementById("searchVehicle").addEventListener("input", (e) => {
     card.style.display = card.innerText.toLowerCase().includes(filter) ? "block" : "none";
   });
 });
+
+function maintenanceAlert() {
+    alert("Cette fonctionnalité est en cours de développement.");
+}
 
 // --- Déconnexion ---
 document.getElementById("logoutButton").addEventListener("click", () => {
