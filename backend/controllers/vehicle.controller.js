@@ -1,5 +1,6 @@
 // Importe la connexion à la base de données
 const db = require("../models/db");
+// Importe le module pour générer des UUID
 const { v4: uuidv4 } = require("uuid");
 
 exports.addVehicle = async (req, res) => {
@@ -63,7 +64,7 @@ const clientId = clientRows[0].id;
 
     // 📥 Requête SQL d'insertion
     const sql = `
-      INSERT INTO vehicles (
+      INSERT INTO Vehicles (
         id, plate_number, brand, model, year, mileage, photo, client_id, garage_id
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
@@ -102,7 +103,7 @@ exports.getAllVehicles = async (req, res) => {
     const garageId = garageRows[0].id;
     const [rows] = await db.query(
       `SELECT v.*, u.last_name AS client_nom, u.first_name AS client_prenom
-      FROM vehicles v
+      FROM Vehicles v
       JOIN User u ON v.client_id = u.id
       WHERE v.garage_id = ?`,
       [garageId]
@@ -127,7 +128,7 @@ exports.getVehiclesByUser = async (req, res) => {
 
     const [rows] = await db.query(
       `SELECT v.*, u.last_name AS client_nom, u.first_name AS client_prenom
-       FROM vehicles v
+       FROM Vehicles v
        JOIN User u ON v.client_id = u.id
        WHERE v.client_id = ?`,
       [userId]

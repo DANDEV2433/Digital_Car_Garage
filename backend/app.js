@@ -36,9 +36,14 @@ app.use(morgan("dev"));
 
 // Monte les routes d'authentification sur /api/v1/auth (ex: /register, /login)
 app.use("/api/v1/auth", require("./routes/auth.routes"));
+// Monte les routes pour les utilisateurs sur /api/v1/users (ex: /users, /users/:id)
+app.use("/api/v1/users", require("./routes/user.routes"));
 
 // Monte les routes liées aux véhicules sur /api/v1 (ex: /vehicles, /vehicles/:id)
 app.use("/api/v1", require("./routes/vehicle.routes"));
+
+// Monte les routes liées aux réparations sur /api/v1/repair (ex: /repair, /repair/:id)
+app.use("/api/v1", require("./routes/repair.routes"));
 
 // Sert les fichiers statiques du frontend (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, "../frontend")));
@@ -47,9 +52,6 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/login/login.html"));
 });
-
-// Monte les routes pour les utilisateurs sur /api/v1/users (ex: /users, /users/:id)
-app.use("/api/v1/users", require("./routes/user.routes"));
 
 
 // Exporte l'app pour qu'elle puisse être utilisée ailleurs (ex: server.js ou les tests)

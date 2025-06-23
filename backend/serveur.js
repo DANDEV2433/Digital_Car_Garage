@@ -9,5 +9,5 @@ const PORT = process.env.PORT || 3000;
 
 // Lance le serveur
 app.listen(PORT, () => {
-  console.log(`✅ Serveur lancé sur http://localhost:${PORT}/login/login.html`);
+  console.log(`Serveur lancé sur http://localhost:${PORT}/login/login.html`);
 });
