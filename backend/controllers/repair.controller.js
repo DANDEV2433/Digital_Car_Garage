@@ -38,6 +38,7 @@ exports.createRepair = async (req, res) => {
   }
 };
 
+// Fonction pour récupérer toutes les réparations d'un véhicule
 exports.getRepairsByVehicle = async (req, res) => {
   const { vehicleId } = req.params;
 
@@ -49,6 +50,7 @@ exports.getRepairsByVehicle = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur." });
   }
 };
+// Fonction pour mettre à jour une réparation existante
 exports.updateRepair = async (req, res) => {
   const { repairId } = req.params;
   const { repair_date, description, mileage, cost } = req.body;
@@ -78,6 +80,7 @@ exports.updateRepair = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur." });
   }
 };
+// Fonction pour supprimer une réparation
 exports.deleteRepair = async (req, res) => {
   const { repairId } = req.params;
 
