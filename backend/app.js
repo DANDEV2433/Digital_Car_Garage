@@ -40,10 +40,10 @@ app.use("/api/v1/auth", require("./routes/auth.routes"));
 app.use("/api/v1/users", require("./routes/user.routes"));
 
 // Monte les routes liées aux véhicules sur /api/v1 (ex: /vehicles, /vehicles/:id)
-app.use("/api/v1", require("./routes/vehicle.routes"));
+app.use("/api/v1/vehicles", require("./routes/vehicle.routes"));
 
-// Monte les routes liées aux réparations sur /api/v1/repair (ex: /repair, /repair/:id)
-app.use("/api/v1", require("./routes/repair.routes"));
+// Monte les routes liées aux réparations sur /api/v1/repairs (ex: /repairs, /repairs/:id)
+app.use("/api/v1/repairs", require("./routes/repair.routes"));
 
 // Sert les fichiers statiques du frontend (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, "../frontend")));

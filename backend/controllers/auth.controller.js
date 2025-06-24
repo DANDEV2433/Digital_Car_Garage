@@ -2,13 +2,13 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const db = require("../models/db");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const role = req.body.role; // 'client' ou 'garage'
 
-  const last_name = req.body.nom || req.body.last_name || req.body.lastName;
-  const first_name = req.body.prenom || req.body.first_name || req.body.firstName;
+  const last_name = req.body.last_name;
+  const first_name = req.req.body.first_name;
   const email = req.body.email;
   const password = req.body.password;
   const raison_sociale = req.body.raisonSociale || null;
@@ -26,6 +26,7 @@ exports.register = async (req, res) => {
     if (roleRows.length === 0) {
       return res.status(400).json({ message: "Rôle invalide" });
     }
+    // Récupérer l'ID du rôle
     const role_id = roleRows[0].id;
 
     // Vérifier si email existe déjà

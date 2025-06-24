@@ -1,7 +1,7 @@
 // Charge les variables d’environnement (.env)
 require("dotenv").config();
 
-// Importe l'application Express déjà configurée
+// Importe l'application Express configurée
 const app = require("./app");
 
 // Définit le port sur lequel le serveur va écouter
