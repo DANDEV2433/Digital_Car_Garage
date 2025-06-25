@@ -5,6 +5,9 @@ const { v4: uuidv4 } = require("uuid");
 
 // function qui permet de créer une réparation pour un véhicule
 exports.createRepair = async (req, res) => {
+  // Récupération de l'ID du véhicule depuis les paramètres de la requête
+  // et des données de la réparation depuis le corps de la requête
+  // Ex: POST /vehicles/:vehicleId/repairs
   const { vehicleId } = req.params;
   const { repair_date, description, mileage, cost } = req.body;
 

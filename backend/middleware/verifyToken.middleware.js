@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   try {
-    // Récupère le token dans le header Authorization
+    // Récupère le token depuis les cookies
     const token = req.cookies.accessToken;
     if (!token) {
       return res.status(401).json({ message: "Token manquant (cookie non trouvé)." });

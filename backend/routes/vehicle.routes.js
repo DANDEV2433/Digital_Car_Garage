@@ -18,7 +18,7 @@ const verifyToken = require("../middleware/verifyToken.middleware");
 router.post("/vehicles", verifyToken, upload.single("photo"), vehicleController.addVehicle);
 // Récupérer tous les véhicules (pour l'affichage dans le garage)
 router.get("/vehicles", verifyToken, vehicleController.getAllVehicles);
-// Récupérer les véhicules d'un utilisateur spécifique
+// Récupérer les véhicules d'un utilisateur spécifique (pour l'affichage dans le client)
 router.get("/vehicles/mine", verifyToken, vehicleController.getVehiclesByUser);
 
 module.exports = router;

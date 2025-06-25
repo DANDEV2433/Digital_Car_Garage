@@ -106,9 +106,14 @@ exports.login = async (req, res) => {
 
     res
   .cookie('accessToken', accessToken, {
+    // httpOnly pour empêcher l'accès via JavaScript
     httpOnly: true,
+    // secure pour envoyer le cookie uniquement sur HTTPS en production
     secure: process.env.NODE_ENV === 'production',
+    // sameSite pour éviter les attaques CSRF
+    // empêche le cookie d’être envoyé si une autre origine (externe) essaie d’appeler ton API.
     sameSite: 'Strict',
+    // maxAge pour définir la durée de vie du cookie
     maxAge: 15 * 60 * 1000 // 15 minutes
   })
   .cookie('refreshToken', refreshToken, {
