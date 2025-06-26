@@ -21,8 +21,6 @@ if (!strongPasswordPattern.test(password)) {
   return;
 }
 
-  const messageBox = document.getElementById("loginMessage");
-
   try {
     const response = await fetch('http://localhost:3000/api/v1/auth/login', {
       method: 'POST',

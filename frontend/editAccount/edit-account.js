@@ -54,6 +54,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      // récupère le prénom et le nom saisis par l’utilisateur
+      const first_name = form.prenom.value;
+      const last_name = form.nom.value;
+      // récupère l'email saisi par l’utilisateur
+      const email = form.email.value;
       // récupère le nouveau mot de passe saisi par l’utilisateur
       const password = form.password.value;
       // récupère la confirmation du mot de passe saisi par l’utilisateur
@@ -67,6 +72,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         role_id: roleMap[selectedRole],
         raisonSociale: selectedRole === "garage" ? form.raisonSociale.value : undefined,
       };
+
+      const namePattern = /^[A-Za-zÀ-ÿ\-\' ]+$/;
+      if (!namePattern.test(first_name) || !namePattern.test(last_name)) {
+        showMessage("Le prénom et le nom ne doivent contenir que des lettres.", false);
+        return;
+      }
+
+      // vérification du format de l'email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        showMessage("Format d'email invalide", false);
+        return;
+      }
+
 
       // Vérifie si un nouveau mot de passe a été saisi
       if (password || confirmPassword) {
@@ -117,5 +136,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     messageBox.textContent = "Erreur : utilisateur non connecté ou serveur inaccessible.";
     messageBox.className = "error";
+  }
+
+  function showMessage(msg, success = true) {
+    // Affiche un message dans la boîte de message
+    messageBox.textContent = msg;
+    messageBox.className = success ? "success" : "error-message";
   }
 });

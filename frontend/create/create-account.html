@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Créer un compte</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header>
     <h1>Digital Car Garage</h1>
@@ -28,7 +30,7 @@
         </select>
       </div>
 
-       <!-- Affiché seulement si rôle = Garagiste -->
+      <!-- Affiché seulement si rôle = Garagiste -->
       <div id="garageFields" style="display: none;">
         <label for="raisonSociale">Raison sociale :</label>
         <input id="raisonSociale" type="text" />
@@ -64,16 +66,10 @@
           <label for="password">Mot de passe :</label>
           <input id="password" type="password" required />
         </div>
-         <div class="field">
+        <div class="field">
           <label for="confirmPassword">Confirmer mot de passe :</label>
           <input id="confirmPassword" type="password" required />
         </div>
-      </div>
-
-      <!-- Raison sociale (si garagiste) -->
-      <div class="full-row" id="garageFields" style="display: none;">
-        <label for="raisonSociale">Raison sociale :</label>
-        <input id="raisonSociale" type="text" />
       </div>
 
       <button type="submit">Créer mon compte</button>
@@ -83,4 +79,5 @@
 
   <script src="create-account.js"></script>
 </body>
+
 </html>

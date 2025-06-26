@@ -2,13 +2,13 @@
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const db = require("../models/db");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   const role = req.body.role; // 'client' ou 'garage'
 
-  const last_name = req.body.last_name;
-  const first_name = req.req.body.first_name;
+  const last_name = req.body.nom;
+  const first_name = req.body.prenom;
   const email = req.body.email;
   const password = req.body.password;
   const raison_sociale = req.body.raisonSociale || null;
@@ -18,6 +18,27 @@ exports.register = async (req, res) => {
   // Vérification préalable des champs requis
   if (!email || !password || !first_name || !last_name || !role) {
     return res.status(400).json({ message: "Tous les champs requis doivent être fournis" });
+  }
+
+  // Vérification du format du nom et prénom
+  const namePattern = /^[A-Za-zÀ-ÿ\-\' ]+$/;
+    if (!namePattern.test(first_name) || !namePattern.test(last_name)) {
+      showMessage("Le prénom et le nom ne doivent contenir que des lettres.", false);
+      return;
+    }
+    
+  // vérification du format du mot de passe
+  const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+  if (!strongPasswordPattern.test(password)) {
+    showMessage("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.", false);
+    return;
+  }
+
+  // vérification du format de l'email
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    showMessage("Format d'email invalide", false);
+    return;
   }
 
   try {
@@ -105,29 +126,29 @@ exports.login = async (req, res) => {
     });
 
     res
-  .cookie('accessToken', accessToken, {
-    // httpOnly pour empêcher l'accès via JavaScript
-    httpOnly: true,
-    // secure pour envoyer le cookie uniquement sur HTTPS en production
-    secure: process.env.NODE_ENV === 'production',
-    // sameSite pour éviter les attaques CSRF
-    // empêche le cookie d’être envoyé si une autre origine (externe) essaie d’appeler ton API.
-    sameSite: 'Strict',
-    // maxAge pour définir la durée de vie du cookie
-    maxAge: 15 * 60 * 1000 // 15 minutes
-  })
-  .cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
-    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
-  })
-  .status(200)
-  .json({
-    role_id: user.role_id,
-    user_id: user.id,
-    message: "Connexion réussie"
-  });
+      .cookie('accessToken', accessToken, {
+        // httpOnly pour empêcher l'accès via JavaScript
+        httpOnly: true,
+        // secure pour envoyer le cookie uniquement sur HTTPS en production
+        secure: process.env.NODE_ENV === 'production',
+        // sameSite pour éviter les attaques CSRF
+        // empêche le cookie d’être envoyé si une autre origine (externe) essaie d’appeler ton API.
+        sameSite: 'Strict',
+        // maxAge pour définir la durée de vie du cookie
+        maxAge: 15 * 60 * 1000 // 15 minutes
+      })
+      .cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
+      })
+      .status(200)
+      .json({
+        role_id: user.role_id,
+        user_id: user.id,
+        message: "Connexion réussie"
+      });
   }
   catch (err) {
     console.error("Erreur dans login:", err);

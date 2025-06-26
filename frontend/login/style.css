@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
   color: white;
 }
-
+/* Conteneur du formulaire */
 .login-container {
   max-width: 500px;
   margin: 50px auto;
@@ -12,20 +12,20 @@ body {
   border-radius: 10px;
   text-align: center;
 }
-
+/* Logo */
 .logo {
   font-family: cursive;
   font-size: 24px;
   color: #eee;
   margin-bottom: 10px;
 }
-
+/* Image d'illustration */
 .login-image {
   width: 100%;
   border-radius: 10px;
   margin: 10px 0;
 }
-
+/* Champs du formulaire de connexion */
 input[type="email"],
 input[type="password"] {
   width: 80%;
@@ -34,7 +34,7 @@ input[type="password"] {
   border: none;
   border-radius: 5px;
 }
-
+/* Boutons de connexion et de création de compte */
 .btn-create,
 .btn-login {
   background: darkred;
@@ -45,11 +45,11 @@ input[type="password"] {
   cursor: pointer;
   margin-top: 10px;
 }
-
+/* Ligne de séparation */
 .separator {
   margin: 20px 0;
 }
-
+/* Liens */
 a {
   color: lightblue;
   display: block;
