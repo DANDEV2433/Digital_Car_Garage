@@ -8,18 +8,18 @@ router.use(verifyToken);
 
 // Créer une réparation pour un véhicule
 // POST /api/v1/vehicles/:vehicleId/repairs
-router.post("/vehicles/:vehicleId/repairs", repairController.createRepair);
+router.post("/:vehicleId", repairController.createRepair);
 
 // Modifier une réparation existante
 // PUT /api/v1/repairs/:repairId
-router.put("/repairs/:repairId", repairController.updateRepair);
+router.put("/update/:repairId", repairController.updateRepair);
 
 // Supprimer une réparation
 // DELETE /api/v1/repairs/:repairId
-router.delete("/repairs/:repairId", repairController.deleteRepair);
+router.delete("/delete/:repairId", repairController.deleteRepair);
 
 // Récupérer toutes les réparations d’un véhicule
 // GET /api/v1/vehicles/:vehicleId/repairs
-router.get("/vehicles/:vehicleId/repairs", repairController.getRepairsByVehicle);
+router.get("/:vehicleId", repairController.getRepairsByVehicle);
 
 module.exports = router;

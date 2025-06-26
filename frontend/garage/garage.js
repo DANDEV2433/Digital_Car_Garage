@@ -1,4 +1,4 @@
-// --- Soumission du formulaire ---
+// --- Soumission du formulaire d'ajout de véhicule ---
 const form = document.getElementById("addvehicleForm");
 
 form.addEventListener("submit", async (e) => {
@@ -7,12 +7,12 @@ form.addEventListener("submit", async (e) => {
   const formData = new FormData(form); // récupère tous les champs du formulaire
 
   try {
-    const response = await fetch("/api/v1/vehicles", {
+    const response = await fetch("http://localhost:3000/api/v1/vehicles", {
       method: "POST",
       credentials: "include",
       body: formData
     });
-
+    // convertit la réponse en JSON
     const data = await response.json();
 
     if (response.ok) {
@@ -50,7 +50,7 @@ function afficherVehicule(v) {
     <p><strong>Kilométrage: </strong>${v.mileage} km</p>
     <button onclick="showRepairDetails('${v.id}')">Détails véhicule</button>
   `;
-
+  // Ajoute la carte au conteneur des véhicules
   document.getElementById("vehicleCards").appendChild(card);
 }
 
@@ -71,6 +71,8 @@ function chargerVehicules() {
 }
 
 // --- Filtrage véhicules ---
+// Ajoute un écouteur d’événement sur le champ de recherche
+// pour filtrer les cartes de véhicules en fonction du texte saisi
 document.getElementById("searchVehicle").addEventListener("input", (e) => {
   // récupère la valeur du champ de recherche et la convertit en minuscules
   const filter = e.target.value.toLowerCase();
@@ -95,7 +97,7 @@ document.getElementById("logoutButton").addEventListener("click", () => {
     });
 });
 
-// --- Fonction pour ajouter un véhicule ---
+// --- Fonction pour ajouter une réparation ---
 function createRepair(vehicleId) {
   // Lecture des valeurs du formulaire (input HTML)
   const repair_date = document.getElementById("repairDate").value;
@@ -104,7 +106,7 @@ function createRepair(vehicleId) {
   const cost = document.getElementById("repairCost").value;
 
   // Envoi de la requête POST vers ton API (auth basée sur cookie)
-  fetch(`http://localhost:3000/api/v1/vehicles/${vehicleId}/repairs`, {
+  fetch(`http://localhost:3000/api/v1/repairs/${vehicleId}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -142,14 +144,14 @@ function updateRepair(repairId) {
   // 2. Récupère les cellules (<td>) de la ligne
   const cells = row.querySelectorAll("td");
 
-  // 3. Lis les valeurs des inputs (date/desc/km/coût)
+  // 3. Lis et stocke les valeurs des inputs (date/desc/km/coût)
   const repair_date = cells[0].querySelector("input").value;
   const description = cells[1].querySelector("input").value;
   const mileage = cells[2].querySelector("input").value;
   const cost = cells[3].querySelector("input").value;
 
   // 4. Envoi de la requête PUT pour mettre à jour la réparation
-  fetch(`http://localhost:3000/api/v1/repairs/${repairId}`, {
+  fetch(`http://localhost:3000/api/v1/repairs/update/${repairId}`, {
     method: "PUT",
     credentials: "include",
     headers: {
@@ -168,7 +170,7 @@ function updateRepair(repairId) {
       const vehicleId = window.currentVehicleId; // ID du véhicule courant
       showRepairDetails(vehicleId); // recharge la liste
     })
-    .catch(err => console.error("Erreur update réparation :", err));
+    .catch(err => console.error("Erreur de modification de la réparation :", err));
 }
 
 // --- Fonction pour afficher les détails d'un véhicule ---
@@ -180,7 +182,7 @@ function showRepairDetails(vehicleId) {
   document.getElementById("repairSection").style.display = "block";
 
   // Appel API pour récupérer les réparations liées à ce véhicule
-  fetch(`http://localhost:3000/api/v1/vehicles/${vehicleId}/repairs`, {
+  fetch(`http://localhost:3000/api/v1/repairs/${vehicleId}`, {
     method: "GET",
     credentials: "include"
   })
@@ -203,7 +205,7 @@ function showRepairDetails(vehicleId) {
           <button onclick="deleteRepair('${repair.id}')">Supprimer</button>
           </td>
         `;
-        // on affiche tout dans "effectué"
+        // on affiche dans "effectué"
         document.getElementById("effectueBody").appendChild(tr);
         // Si la date de réparation est dans le futur, on l'affiche dans "à prévoir"
         if (repair.repair_date > new Date().toISOString().split('T')[0]) {
@@ -223,7 +225,7 @@ window.addEventListener("DOMContentLoaded", () => {
 function deleteRepair(repairId) {
   if (!confirm("Êtes-vous sûr de vouloir supprimer cette réparation ?")) return;
 
-  fetch(`http://localhost:3000/api/v1/repairs/${repairId}`, {
+  fetch(`http://localhost:3000/api/v1/repairs/delete/${repairId}`, {
     method: "DELETE",
     credentials: "include"
   })

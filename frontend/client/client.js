@@ -71,7 +71,7 @@ document.getElementById("logoutButton").addEventListener("click", () => {
 // Cette fonction est appelée lorsqu'on clique sur le bouton "Détails véhicule"
 // Elle récupère les réparations associées à un véhicule et les affiche dans un tableau
 function showRepairDetails(vehicleId) {
-    fetch(`http://localhost:3000/api/v1/vehicles/${vehicleId}/repairs`, {
+    fetch(`http://localhost:3000/api/v1/repairs/${vehicleId}`, {
         method: 'GET',
         credentials: 'include'
     })

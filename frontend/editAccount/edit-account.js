@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Erreur lors de la déconnexion :", err);
       });
   });
-  // --- Gestion de l'affichage des champs pour le garage ---
+  // --- Gestion de l'affichage du champ raison sociale pour le garage ou non ---
   roleSelect.addEventListener("change", () => {
     if (roleSelect.value === "garage") {
       garageFields.style.display = "block";
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // --- Récupération des données utilisateur ---
   try {
     const response = await fetch("http://localhost:3000/api/v1/users/me", {
-      credentials: "include",
+    credentials: "include"
     });
 
     if (!response.ok) throw new Error("Utilisateur non connecté");
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         role_id: roleMap[selectedRole],
         raisonSociale: selectedRole === "garage" ? form.raisonSociale.value : undefined,
       };
-
+      // vérification du format du nom et prénom
       const namePattern = /^[A-Za-zÀ-ÿ\-\' ]+$/;
       if (!namePattern.test(first_name) || !namePattern.test(last_name)) {
         showMessage("Le prénom et le nom ne doivent contenir que des lettres.", false);
@@ -86,27 +86,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-
       // Vérifie si un nouveau mot de passe a été saisi
       if (password || confirmPassword) {
         if (password !== confirmPassword) {
-          messageBox.textContent = "Les mots de passe ne correspondent pas.";
-          messageBox.className = "error";
+          showMessage("Les mots de passe ne correspondent pas.", false);
           return;
         }
         // Vérifie si le mot de passe est fort
         const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
         // Si le mot de passe ne respecte pas les critères, affiche un message d'erreur
         if (!strongPasswordPattern.test(password)) {
-          alert("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+          showMessage("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.", false);
           return;
         }
 
         // Si un mot de passe est fourni, demande l'ancien mot de passe
         const ancien = prompt("Pour changer votre mot de passe, entrez l'ancien mot de passe :");
         if (!ancien) {
-          messageBox.textContent = "Changement de mot de passe annulé.";
-          messageBox.className = "error";
+          showMessage("Erreur, changement de mot de passe annulé.", false);
           return;
         }
         // Ajoute le mot de passe actuel et le nouveau mot de passe à l'objet data
@@ -124,18 +121,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       const result = await updateResponse.json();
 
       if (updateResponse.ok) {
-        messageBox.textContent = "Compte modifié avec succès.";
-        messageBox.className = "success";
+        showMessage("Compte modifié avec succès.", true);
         setTimeout(() => window.location.href = "../login/login.html", 3000);
       } else {
-        messageBox.textContent = result.message || "Erreur lors de la modification.";
-        messageBox.className = "error";
+        showMessage(result.message || "Erreur lors de la modification.", false);
       }
     });
 
   } catch (error) {
-    messageBox.textContent = "Erreur : utilisateur non connecté ou serveur inaccessible.";
-    messageBox.className = "error";
+    showMessage("Erreur : utilisateur non connecté ou serveur inaccessible.", false);
   }
 
   function showMessage(msg, success = true) {
