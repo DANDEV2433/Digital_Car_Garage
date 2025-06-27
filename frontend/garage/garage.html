@@ -29,7 +29,7 @@
     <section class="vehicle-list">
       <h2>Véhicules enregistrés</h2>
       <input type="text" id="searchVehicle" placeholder="Rechercher un véhicule" />
-      <div id="vehicleCards" class="vehicle-list">
+      <div id="vehicleCards" class="cards">
         <!-- Cartes véhicules générées dynamiquement -->
       </div>
     </section>
@@ -48,14 +48,16 @@
       </form>
     </section>
 
-    <section id="repairSection" class="entretiens" style="display: none;">
-      <!-- Formulaire d'ajout de réparation -->
+    <section id="repairSection" class="repair-section" style="display: none;">
+      <div class="entretiens">
+        <!-- Formulaire d'ajout de réparation -->
       <form id="addRepairForm">
         <h2>Ajouter une réparation</h2>
         <input type="date" id="repairDate" required />
         <input type="text" id="repairDescription" placeholder="Description" required />
         <input type="number" id="repairMileage" placeholder="Kilométrage" required />
         <input type="number" step="0.01" id="repairCost" placeholder="Coût (€)" required />
+        <input type="file" id="repairInvoice" accept="image/*" />
         <button type="submit">Valider</button>
       </form>
 
@@ -67,6 +69,7 @@
             <th>Type de réparations</th>
             <th>Km</th>
             <th>Coût</th>
+            <th>Factures</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -81,11 +84,13 @@
             <th>Type de réparations</th>
             <th>Km</th>
             <th>Coût</th>
+            <th>Factures</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody id="aprevoirBody"></tbody>
       </table>
+    </div>
     </section>
   </main>
 

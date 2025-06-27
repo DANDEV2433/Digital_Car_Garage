@@ -1,190 +1,16 @@
+/* Base globale */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background-color: #f3f3f3;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(90deg, #2c3e50, #34495e);
-  color: white;
-  padding: 1rem 2rem;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin-right: 1rem;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background-color: #34495e;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: white;
-  min-width: 160px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  border-radius: 6px;
-}
-
-.dropdown-content a {
-  color: #2c3e50;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #ecf0f1;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Contenu principal */
 main {
   padding: 2rem;
-}
-
-h1 {
-  margin-bottom: 1.5rem;
-}
-
-/* Structure principale */
-.container {
-  display: flex;
-  gap: 2rem;
-}
-
-/* Partie gauche : véhicules */
-.vehicules {
-  flex: 1;
-  max-width: 45%;
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.recherche {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.recherche label {
-  font-weight: bold;
-}
-
-.recherche input,
-.recherche select {
-  padding: 0.5rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-#filtrerBtn {
-  background-color: #2980b9;
-  color: white;
-  padding: 0.6rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-}
-
-.vehicle-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.vehicle-card {
-  background-color: #ecf0f1;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  text-align: center;
-  position: relative;
-}
-
-.vehicle-card img {
-  width: 100%;
-  max-height: 150px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
-}
-
-/* Alerte centrée sous l'image */
-.alertes {
-  background-color: #e74c3c;
-  color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  font-weight: bold;
-  width: fit-content;
-  margin: 0 auto 1rem auto;
-}
-
-/* Partie droite : entretiens */
-.entretiens {
-  flex: 2;
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.entretiens h2 {
-  margin-top: 0;
-  color: #2c3e50;
-}
-
-.entretiens table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
-}
-
-.entretiens th,
-.entretiens td {
-  border: 1px solid #ddd;
-  padding: 0.75rem;
-  text-align: left;
-}
-
-.entretiens th {
-  background-color: #34495e;
-  color: white;
-}
-
-.entretiens td {
-  background-color: #fdfdfd;
 }
 
 .header {
@@ -202,88 +28,123 @@ h1 {
 
 .header-right {
   display: flex;
-  align-items: center;
   gap: 1rem;
 }
 
-.btn {
-  background-color: #2980b9;
+/* --- Boutons & dropdown --- */
+.btn,
+.dropbtn,
+.logout-btn {
   padding: 0.5rem 1rem;
   color: white;
-  border-radius: 5px;
-  text-decoration: none;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background-color: #34495e;
-  color: white;
-  padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  text-decoration: none;
 }
 
+.btn { background-color: #2980b9; }
+.logout-btn { background-color: #e74c3c; }
+.dropbtn { background-color: #34495e; }
+
+.dropdown {
+  position: relative;
+}
 .dropdown-content {
   display: none;
   position: absolute;
   right: 0;
-  background-color: white;
+  background: white;
   min-width: 160px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-  z-index: 1;
   border-radius: 6px;
+  z-index: 1;
 }
-
 .dropdown-content a {
-  color: #2c3e50;
-  padding: 12px 16px;
-  text-decoration: none;
   display: block;
+  padding: 12px 16px;
+  color: #2c3e50;
+  text-decoration: none;
 }
-
 .dropdown-content a:hover {
   background-color: #ecf0f1;
 }
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.vehicle-list {
+/* affichage principal */
+.container {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  gap: 2rem;
+}
+
+.vehicle-list, .entretiens {
+  flex: 1;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.vehicle-list {
+  max-width: 45%;
 }
 
 .vehicle-list input[type="text"] {
-  margin: 1rem 0;
-  padding: 0.5rem;
   width: 100%;
+  padding: 0.5rem;
+  margin: 1rem 0;
   border-radius: 6px;
   border: 1px solid #ccc;
 }
 
 .vehicle-card {
-  border: 1px solid #ddd;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
   background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .vehicle-card img {
   width: 100%;
   max-height: 150px;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
   border-radius: 6px;
+}
+
+/* Alertes */
+.alertes {
+  background-color: #e74c3c;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  width: fit-content;
+  margin: 0 auto 1rem;
+}
+
+/* ----- Tableaux entretiens ----- */
+.entretiens table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.entretiens th, .entretiens td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.entretiens th {
+  background-color: #34495e;
+  color: white;
+}
+
+.entretiens td {
+  background-color: #fdfdfd;
 }

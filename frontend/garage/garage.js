@@ -201,6 +201,9 @@ function showRepairDetails(vehicleId) {
           <td><input type="number" value="${repair.mileage}" /></td>
           <td><input type="number" step="0.01" value="${repair.cost}" /></td>
           <td>
+            <a href="${repair.invoice_url}" target="_blank">Voir facture</a>
+          </td>
+          <td>
           <button onclick="updateRepair('${repair.id}')">Modifier</button>
           <button onclick="deleteRepair('${repair.id}')">Supprimer</button>
           </td>
