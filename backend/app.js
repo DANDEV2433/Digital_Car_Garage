@@ -48,9 +48,12 @@ app.use("/api/v1/repairs", require("./routes/repair.routes"));
 // Sert les fichiers statiques du frontend (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-// Définit la route / qui renvoie le fichier login.html (page par défaut)
+// Sert les fichiers statiques depuis la racine (index.html, style.css)
+app.use(express.static(path.join(__dirname, "..")));
+
+// Définit la route / qui renvoie le fichier index.html (landing page)
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/login/login.html"));
+  res.sendFile(path.join(__dirname, "../index.html"));
 });
 
 
