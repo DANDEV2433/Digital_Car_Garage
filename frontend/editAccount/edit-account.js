@@ -66,8 +66,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       // crée un objet data avec les champs saisis
       const selectedRole = form.role.value;
       const data = {
-        nom: form.nom.value,
-        prenom: form.prenom.value,
+        last_name_name: form.nom.value,
+        first_name: form.prenom.value,
         email: form.email.value,
         role_id: roleMap[selectedRole],
         raisonSociale: selectedRole === "garage" ? form.raisonSociale.value : undefined,

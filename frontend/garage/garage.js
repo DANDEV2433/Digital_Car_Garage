@@ -137,12 +137,16 @@ document.getElementById("addRepairForm").addEventListener("submit", function (e)
 // --- Fonction pour modifier une réparation ---
 function updateRepair(repairId) {
   // 1. Sélectionne la ligne (<tr>) correspondant à la réparation
-  const row = [...document.querySelectorAll("#effectueBody tr")]
+  const rowEffectueBody = [...document.querySelectorAll("#effectueBody tr")]
     .find(tr => tr.querySelector("button")?.onclick?.toString().includes(repairId));
-  if (!row) return; // si introuvable, on sort
+
+  const rowAprevoirBody = [...document.querySelectorAll("#aprevoirBody tr")]
+    .find(tr => tr.querySelector("button")?.onclick?.toString().includes(repairId));
+
+  if (!rowEffectueBody && !rowAprevoirBody) return; // si introuvable, on sort
 
   // 2. Récupère les cellules (<td>) de la ligne
-  const cells = row.querySelectorAll("td");
+  const cells = rowEffectueBody ? rowEffectueBody.querySelectorAll("td") : rowAprevoirBody.querySelectorAll("td");
 
   // 3. Lis et stocke les valeurs des inputs (date/desc/km/coût)
   const repair_date = cells[0].querySelector("input").value;
