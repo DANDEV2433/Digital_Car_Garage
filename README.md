@@ -185,7 +185,7 @@ Des tests manuels ont été effectués en utilisant Postman pour les points d'ac
 Migrer du stockage de fichiers JSON vers un système de base de données approprié (SQLite/PostgreSQL).
 
 ### Application mobile
-Développer une version d'application mobile en utilisant vue.js et vuetify.
+Développer une version d'application mobile en utilisant Vue.js et Vuetify.
 
 ### Système de notifications
 Ajouter des notifications email/SMS pour les rappels de maintenance à venir.
@@ -194,7 +194,7 @@ Ajouter des notifications email/SMS pour les rappels de maintenance à venir.
 Ajouter le support d'internationalisation pour plusieurs langues.
 
 ### Ajout de factures
-Ajouter des factures coté garage (pdf) pour que le client puisse les télécharger
+Ajouter des factures côté garage (PDF) pour que le client puisse les télécharger.
 
 ## Méthodologie de développement
 
@@ -202,7 +202,7 @@ Ce projet a été développé en utilisant des pratiques modernes de développem
 - **Organisation du code :** Architecture modulaire avec séparation des préoccupations
 - **Tests :** Tests unitaires avec le framework Jest
 - **Documentation :** Commentaires de code complets et documentation API
-- **Sécurité :** Authentification JWT, Token stocké dans les cookies (httpOnly) access et refresh
+- **Sécurité :** Authentification JWT, tokens stockés dans les cookies (httpOnly), access et refresh tokens
 
 ## Considérations de performance
 
@@ -215,9 +215,9 @@ Ce projet a été développé en utilisant des pratiques modernes de développem
 Pour toute question ou contribution, contactez :
 
 **Alexandre DANIEL**  
-alexdani3344@gmail.com 
-LinkedIn : [alexandre-daniel-0a0435200](https://www.linkedin.com/in/alexandre-daniel-0a0435200/)  
-GitHub : [@DANDEV2433](https://github.com/DANDEV2433)
+📧 alexdani3344@gmail.com  
+🔗 LinkedIn : [alexandre-daniel-0a0435200](https://www.linkedin.com/in/alexandre-daniel-0a0435200/)  
+🐙 GitHub : [@DANDEV2433](https://github.com/DANDEV2433)
 
 ---
 
