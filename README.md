@@ -181,9 +181,6 @@ Des tests manuels ont été effectués en utilisant Postman pour les points d'ac
 
 ## Améliorations futures
 
-### Intégration de base de données
-Migrer du stockage de fichiers JSON vers un système de base de données approprié (SQLite/PostgreSQL).
-
 ### Application mobile
 Développer une version d'application mobile en utilisant Vue.js et Vuetify.
 
